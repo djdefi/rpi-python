@@ -1,4 +1,4 @@
-FROM djdefi/rpi-alpine
+FROM djdefi/rpi-alpine:latest
 
 # http://bugs.python.org/issue19846
 # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
@@ -12,6 +12,7 @@ ENV PYTHON_VERSION 2.7.16
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
 ENV PYTHON_PIP_VERSION 9.0.3
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN set -ex \
 	&& apk add --no-cache --virtual .fetch-deps curl gnupg tar xz \
 	&& curl -fSL "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" -o python.tar.xz \
