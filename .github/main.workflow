@@ -1,8 +1,14 @@
-workflow "Lint Dockerfiles" {
-  on = "push"
-  resolves = ["Lint all the files"]
-}
+name: Docker Image CI
 
-action "Lint all the files" {
-  uses = "docker://cdssnc/docker-lint"
-}
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+    - uses: brpaz/hadolint-action@master
+    - name: Hadolint
