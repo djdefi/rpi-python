@@ -10,5 +10,6 @@ jobs:
 
 
     steps:
+    - uses: actions/checkout@v1
     - name: Hadolint
       uses: brpaz/hadolint-action@master
