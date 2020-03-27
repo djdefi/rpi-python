@@ -1,4 +1,4 @@
-FROM balenalib/raspberry-pi-alpine:latest
+FROM balenalib/raspberry-pi-alpine:3.11
 
 # http://bugs.python.org/issue19846
 # > At the moment, setting "LANG=C" on a Linux system *fundamentally breaks Python 3*, and that's not OK.
@@ -62,7 +62,7 @@ RUN set -ex \
 			| xargs -r apk info --installed \
 			| sort -u \
 	)" \
-	&& apk add --virtual .python-rundeps $runDeps \
+	&& apk add --no-cache --virtual .python-rundeps $runDeps \
 	&& apk del .build-deps .fetch-deps \
 	&& rm -rf /usr/src/python ~/.cache
 
