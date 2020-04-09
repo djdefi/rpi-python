@@ -47,7 +47,7 @@ RUN set -ex \
 	&& make -j$(getconf _NPROCESSORS_ONLN) \
 	&& make install \
 	&& curl -fSL 'https://bootstrap.pypa.io/get-pip.py' | python2 \
-	&& pip install --no-cache-dir --upgrade pip==$PYTHON_PIP_VERSION \
+	&& pip install --no-cache-dir --upgrade pip=="$PYTHON_PIP_VERSION" \
 	&& [ "$(pip list | awk -F '[ ()]+' '$1 == "pip" { print $2; exit }')" = "$PYTHON_PIP_VERSION" ] \
 	&& find /usr/local -depth \
 		\( \
@@ -62,7 +62,7 @@ RUN set -ex \
 			| xargs -r apk info --installed \
 			| sort -u \
 	)" \
-	&& apk add --no-cache --virtual .python-rundeps $runDeps \
+	&& apk add --no-cache --virtual .python-rundeps "$runDeps" \
 	&& apk del .build-deps .fetch-deps \
 	&& rm -rf /usr/src/python ~/.cache
 
